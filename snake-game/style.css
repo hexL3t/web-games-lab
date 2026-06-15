@@ -1,0 +1,175 @@
+/* ============================================
+   IMPORTS
+   ============================================ */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Open+Sans:wght@400;500;600&display=swap');
+
+/* ============================================
+   VARIABLES
+   ============================================ */
+:root {
+    /* Backgrounds */
+    --bg-body:    #0d0d1a;
+    --bg-wrapper: #0f1923;
+    --bg-header:  #0a1118;
+    --bg-board:   #0f1923;
+
+    /* Snake */
+    --color-snake:       #4caf50;
+    --color-snake-dark:  #2e7d32;
+    --color-snake-light: #66bb6a;
+    --glow-snake:        rgba(76, 175, 80, 0.6);
+
+    /* Food */
+    --color-food:       #ff5722;
+    --color-food-light: #ff8a65;
+    --glow-food:        rgba(255, 87, 34, 0.8);
+
+    /* UI */
+    --color-score:     #4caf50;
+    --color-highscore: #ffd700;
+    --color-border:    rgba(76, 175, 80, 0.2);
+    --color-grid:      rgba(76, 175, 80, 0.03);
+    --glow-wrapper:    rgba(76, 175, 80, 0.2);
+}
+
+/* ============================================
+   RESET
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ============================================
+   LAYOUT
+   ============================================ */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: radial-gradient(ellipse at center, #1a1a2e 0%, var(--bg-body) 100%);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+/* ============================================
+   HEADER & FOOTER
+   ============================================ */
+header, footer {
+    text-align: center;
+}
+
+.title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--color-snake);
+    text-shadow: 0 0 20px var(--glow-snake), 0 0 40px var(--glow-snake);
+}
+
+.subtitle {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 6px;
+}
+
+.instructions {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+kbd {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    color: var(--color-snake);
+    background: rgba(76, 175, 80, 0.15);
+    border: 1px solid var(--color-border);
+}
+
+/* ============================================
+   GAME WRAPPER
+   ============================================ */
+.wrapper {
+    width: 65vmin;
+    height: 72vmin;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg-wrapper);
+    border: 1px solid var(--color-border);
+    box-shadow:
+        0 0 40px var(--glow-wrapper),
+        0 0 80px rgba(76, 175, 80, 0.05),
+        0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.game-details {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 20px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #fff;
+    background: var(--bg-header);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.score     { color: var(--color-score); }
+.high-score { color: var(--color-highscore); }
+
+/* ============================================
+   GAME BOARD
+   ============================================ */
+.play-board {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template: repeat(30, 1fr) / repeat(30, 1fr);
+    background:
+        linear-gradient(var(--color-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--color-grid) 1px, transparent 1px),
+        var(--bg-board);
+    background-size: calc(100% / 30) calc(100% / 30);
+}
+
+/* ============================================
+   GAME ELEMENTS
+   ============================================ */
+.play-board .food {
+    background: radial-gradient(circle at 35% 35%, var(--color-food-light), var(--color-food));
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--glow-food), 0 0 12px rgba(255, 87, 34, 0.4);
+    animation: pulse 0.8s ease-in-out infinite alternate;
+}
+
+.play-board .head {
+    background: linear-gradient(135deg, var(--color-snake-light), var(--color-snake-dark));
+    border-radius: 3px;
+    box-shadow: 0 0 4px var(--glow-snake);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes pulse {
+    from { transform: scale(0.85); box-shadow: 0 0 4px var(--glow-food); }
+    to   { transform: scale(1.1);  box-shadow: 0 0 10px var(--glow-food), 0 0 20px rgba(255, 87, 34, 0.4); }
+}
